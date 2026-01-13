@@ -34,7 +34,7 @@ function Home() {
                 fontWeight: "bold",
               }}
             >
-              Seja bem Vinda!
+              Seja Bem Vinda!
             </h2>
 
             <p
