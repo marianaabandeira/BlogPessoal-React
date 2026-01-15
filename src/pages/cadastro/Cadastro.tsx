@@ -2,11 +2,18 @@ function Cadastro() {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold bg-[#d776a2]">
-        <div
-          className="bg-[url('https://i.imgur.com/ZZFAmzo.jpg')] lg:block hidden bg-no-repeat w-full min-h-screen bg-cover bg-center"
-        ></div>
+        
+        {/* Imagem do lado esquerdo */}
+        <div className="lg:block hidden w-full min-h-screen flex items-center justify-center">
+          <img
+            src="/src/assets/eu.png"
+            alt="Ilustração de uma menina no computador"
+            className="max-w-[600px] w-full h-auto object-contain mx-auto mt-27"
+          />
+        </div>
 
-        <form className="flex justify-center items-center flex-col w-2/3 gap-3 bg-[#f2b7cd] p-8 rounded-2xl shadow-lg">
+        {/* Formulário */}
+        <form className="flex justify-center items-center flex-col w-2/3 gap-3 bg-[#e8a9c3] p-8 rounded-2xl shadow-lg">
           <h2 className="text-white text-5xl">Cadastrar</h2>
 
           <div className="flex flex-col w-full text-white">
@@ -67,7 +74,7 @@ function Cadastro() {
           <div className="flex justify-around w-full gap-8">
             <button
               type="reset"
-              className="rounded text-white bg-[#e8a9c3] hover:bg-[#d776a2] w-1/2 py-2"
+              className="rounded text-white bg-[#d776a2] hover:bg-[#e8a9c3] w-1/2 py-2"
             >
               Cancelar
             </button>
