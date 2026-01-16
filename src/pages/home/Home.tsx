@@ -1,88 +1,37 @@
-function Cadastro() {
+function Home() {
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold bg-[#d776a2]">
-        <div
-          className="bg-[url('https://i.imgur.com/ZZFAmzo.jpg')] lg:block hidden bg-no-repeat w-full min-h-screen bg-cover bg-center"
-        ></div>
+      <div className="bg-[#d776a2] flex justify-center min-h-[60vh]">
+        <div className="container grid grid-cols-2 gap-24 items-center text-white max-w-[1280px]">
+          
+          <div className="flex flex-col items-center justify-center py-4 text-center">
+            <h2 className="text-5xl font-bold mb-12">
+              Seja bem-vinda ao Blog Dev da Mari!
+            </h2>
 
-        <form className="flex justify-center items-center flex-col w-2/3 gap-3 bg-[#f2b7cd] p-8 rounded-2xl shadow-lg">
-          <h2 className="text-white text-5xl">Cadastrar</h2>
+            <p className="text-xl mb-10">
+              Onde tecnologia, ideias e vivências se encontram.
+            </p>
 
-          <div className="flex flex-col w-full text-white">
-            <label htmlFor="nome">Nome</label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              placeholder="Nome"
-              className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            <div className="mt-6">
+              <div className="rounded text-white border-white border-2 py-2 px-4">
+                Nova Postagem
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center pt-6">
+            <img
+              src="https://media-public.canva.com/Q1TvM/MAFBmcQ1TvM/1/tl.png"
+              alt="Imagem Página Home"
+              className="w-2/3"
             />
           </div>
 
-          <div className="flex flex-col w-full text-white">
-            <label htmlFor="usuario">Usuário</label>
-            <input
-              type="text"
-              id="usuario"
-              name="usuario"
-              placeholder="Usuário"
-              className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
-            />
-          </div>
-
-          <div className="flex flex-col w-full text-white">
-            <label htmlFor="foto">Foto</label>
-            <input
-              type="text"
-              id="foto"
-              name="foto"
-              placeholder="Foto"
-              className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
-            />
-          </div>
-
-          <div className="flex flex-col w-full text-white">
-            <label htmlFor="senha">Senha</label>
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              placeholder="Senha"
-              className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
-            />
-          </div>
-
-          <div className="flex flex-col w-full text-white">
-            <label htmlFor="confirmarSenha">Confirmar Senha</label>
-            <input
-              type="password"
-              id="confirmarSenha"
-              name="confirmarSenha"
-              placeholder="Confirmar Senha"
-              className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
-            />
-          </div>
-
-          <div className="flex justify-around w-full gap-8">
-            <button
-              type="reset"
-              className="rounded text-white bg-[#e8a9c3] hover:bg-[#d776a2] w-1/2 py-2"
-            >
-              Cancelar
-            </button>
-
-            <button
-              type="submit"
-              className="rounded text-white bg-[#d776a2] hover:bg-[#e8a9c3] w-1/2 py-2 flex justify-center"
-            >
-              Cadastrar
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </>
   );
 }
 
-export default Cadastro;
+export default Home;
