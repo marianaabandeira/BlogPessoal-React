@@ -3,9 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "../../../contexts/AuthContext"
 import type Tema from "../../../models/Tema"
 import { buscar, deletar } from "../../../services/Service"
-
 import { ClipLoader } from "react-spinners"
-
 
 function DeletarTema() {
   const navigate = useNavigate()
@@ -72,30 +70,40 @@ function DeletarTema() {
           Você tem certeza de que deseja apagar o tema a seguir?
         </p>
 
-        {/* Descrição no formato pedido */}
-        <p className="p-8 text-3xl bg-slate-200 h-full text-center">
+        <div
+          className="w-full rounded-lg p-4 text-white text-center text-xl font-semibold"
+          style={{ backgroundColor: "#e8a9c3" }}
+        >
           {tema.descricao}
-        </p>
+        </div>
 
         <div className="flex gap-4 mt-2">
-          {/* SIM - esquerda */}
+          {/* SIM */}
           <button
             onClick={deletarTema}
-            className="flex-1 py-2 rounded-lg text-white text-center font-semibold transition flex justify-center items-center"
+            className="flex-1 py-2 rounded-lg text-white font-semibold transition flex justify-center items-center"
             style={{ backgroundColor: "#d776a2" }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#e8a9c3")}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#d776a2")}
+            onMouseEnter={e =>
+              (e.currentTarget.style.backgroundColor = "#e8a9c3")
+            }
+            onMouseLeave={e =>
+              (e.currentTarget.style.backgroundColor = "#d776a2")
+            }
           >
             {isLoading ? <ClipLoader color="#ffffff" size={24} /> : "Sim"}
           </button>
 
-          {/* NÃO - direita */}
+          {/* NÃO */}
           <button
             onClick={retornar}
-            className="flex-1 py-2 rounded-lg text-white text-center font-semibold transition"
-            style={{ backgroundColor: "#d776a2" }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#e8a9c3")}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#d776a2")}
+            className="flex-1 py-2 rounded-lg text-white font-semibold transition"
+            style={{ backgroundColor: "#e8a9c3" }}
+            onMouseEnter={e =>
+              (e.currentTarget.style.backgroundColor = "#d776a2")
+            }
+            onMouseLeave={e =>
+              (e.currentTarget.style.backgroundColor = "#e8a9c3")
+            }
           >
             Não
           </button>
