@@ -1,15 +1,18 @@
-import { useContext, useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import {useContext,useEffect,useState,type ChangeEvent,type FormEvent} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../contexts/AuthContext";
 import type UsuarioLogin from "../../models/UsuarioLogin";
+import eu from "../../assets/eu.png";
 
 function Login() {
   const navigate = useNavigate();
 
   const { usuario, handleLogin, isLoading } = useContext(AuthContext);
 
-  const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({} as UsuarioLogin);
+  const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
+    {} as UsuarioLogin
+  );
 
   useEffect(() => {
     if (usuario.token !== "") {
@@ -32,6 +35,8 @@ function Login() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold bg-[#d776a2]">
+      
+      {/* FORMULÁRIO */}
       <form
         className="flex justify-center items-center flex-col w-1/2 gap-4 bg-[#e8a9c3] p-8 rounded-2xl shadow-lg"
         onSubmit={login}
@@ -45,7 +50,7 @@ function Login() {
             id="usuario"
             name="usuario"
             placeholder="Usuário"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={usuarioLogin.usuario || ""}
             onChange={atualizarEstado}
           />
@@ -58,7 +63,7 @@ function Login() {
             id="senha"
             name="senha"
             placeholder="Senha"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={usuarioLogin.senha || ""}
             onChange={atualizarEstado}
           />
@@ -69,24 +74,32 @@ function Login() {
           className="rounded text-white bg-[#d776a2] hover:bg-[#e8a9c3] w-1/2 py-2 flex justify-center"
           disabled={isLoading}
         >
-          {isLoading ? <ClipLoader color="white" size={24} /> : <span>Entrar</span>}
+          {isLoading ? (
+            <ClipLoader color="white" size={24} />
+          ) : (
+            <span>Entrar</span>
+          )}
         </button>
 
         <hr className="border-white w-full" />
 
         <p className="text-white">
           Ainda não tem uma conta?{" "}
-          <Link to="/cadastro" className="text-white underline hover:text-[#d776a2]">
+          <Link
+            to="/cadastro"
+            className="text-white underline hover:text-[#d776a2]"
+          >
             Cadastre-se
           </Link>
         </p>
       </form>
 
+      {/* IMAGEM */}
       <div className="lg:block hidden w-full min-h-screen flex items-center justify-center">
         <img
-          src="/src/assets/eu.png"
+          src={eu}
           alt="Ilustração de uma menina no computador"
-          className="max-w-[600px] w-full h-auto object-contain mx-auto mt-26"
+          className="max-w-[600px] w-full h-auto object-contain mx-auto"
         />
       </div>
     </div>
