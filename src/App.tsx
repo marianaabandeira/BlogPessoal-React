@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import ListaTemas from "./components/tema/listatemas/ListaTemas";
@@ -11,11 +12,14 @@ import Cadastro from "./pages/cadastro/Cadastro";
 import Login from "./pages/login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import DeletarPostagem from "./components/postagem/deletarpostagem/DeletarPostagem";
+import Perfil from "./pages/perfil/Perfil";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
     <AuthProvider>
+      <ToastContainer />
       <BrowserRouter>
         <Navbar />
         <div className="min-h-screen">
@@ -31,6 +35,7 @@ function App() {
             <Route path="/cadastrarpostagem" element={<FormPostagem />} />
             <Route path="/editarpostagem/:id" element={<FormPostagem />} /> 
             <Route path="/deletarpostagem/:id" element={<DeletarPostagem />} />
+            <Route path="/perfil" element={<Perfil />} />
           </Routes>
         </div>
 
