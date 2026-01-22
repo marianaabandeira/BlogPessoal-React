@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthContext"
 import type Tema from "../../../models/Tema"
 import { buscar, deletar } from "../../../services/Service"
 import { ClipLoader } from "react-spinners"
+import type { AxiosRequestConfig } from "axios"
 
 function DeletarTema() {
   const navigate = useNavigate()
@@ -16,11 +17,17 @@ function DeletarTema() {
 
   const { id } = useParams<{ id: string }>()
 
+  // 🔹 Header tipado (correção principal)
+  const config: AxiosRequestConfig = {
+    headers: {
+      Authorization: token
+    }
+  }
+
   async function buscarPorId(id: string) {
     try {
-      await buscar(`/temas/${id}`, setTema, {
-        headers: { Authorization: token }
-      })
+      const resposta = await buscar(`/temas/${id}`, config)
+      setTema(resposta.data)
     } catch (error: any) {
       if (error.toString().includes("401")) handleLogout()
     }
@@ -40,9 +47,7 @@ function DeletarTema() {
   async function deletarTema() {
     setIsLoading(true)
     try {
-      await deletar(`/temas/${id}`, {
-        headers: { Authorization: token }
-      })
+      await deletar(`/temas/${id}`, config)
       alert("Tema apagado com sucesso")
     } catch (error: any) {
       if (error.toString().includes("401")) handleLogout()

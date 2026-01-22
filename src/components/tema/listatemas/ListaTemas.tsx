@@ -1,47 +1,54 @@
-
-import { useNavigate } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
-import CardTema from "../cardtema/CardTema";
-import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../../contexts/AuthContext";
-import type Tema from "../../../models/Tema";
-import { buscar } from "../../../services/Service";
+import { useNavigate } from "react-router-dom"
+import { SyncLoader } from "react-spinners"
+import CardTema from "../cardtema/CardTema"
+import { useState, useContext, useEffect } from "react"
+import { AuthContext } from "../../../contexts/AuthContext"
+import type Tema from "../../../models/Tema"
+import { buscar } from "../../../services/Service"
 
 function ListaTemas() {
-  const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [temas, setTemas] = useState<Tema[]>([]);
+  const navigate = useNavigate()
 
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [temas, setTemas] = useState<Tema[]>([])
 
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
+
+  // 🔹 Protege a rota
   useEffect(() => {
-    if (!token) {
-      alert("Você precisa estar logado!");
-      navigate("/");
+    if (token === "") {
+      alert("Você precisa estar logado!")
+      navigate("/")
     }
-  }, [token]);
+  }, [token])
 
+  // 🔹 Busca temas SOMENTE quando o token existir
   useEffect(() => {
-    buscarTemas();
-  }, [temas.length]);
+    if (token !== "") {
+      buscarTemas()
+    }
+  }, [token])
 
   async function buscarTemas() {
     try {
-      setIsLoading(true);
+      setIsLoading(true)
 
-      await buscar("/temas", setTemas, {
+      const resposta = await buscar("/temas", {
         headers: {
           Authorization: token
         }
-      });
+      })
+
+      setTemas(resposta.data)
+
     } catch (error: any) {
       if (error.toString().includes("401")) {
-        handleLogout();
+        handleLogout()
       }
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -69,7 +76,7 @@ function ListaTemas() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default ListaTemas;
+export default ListaTemas

@@ -28,9 +28,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  // 🔹 Recupera token ao abrir a aplicação
+  // 🔹 Recupera token ao recarregar a aplicação
   useEffect(() => {
     const tokenSalvo = localStorage.getItem("token")
+
     if (tokenSalvo) {
       setUsuario({
         id: 0,
@@ -45,16 +46,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function handleLogin(usuarioLogin: UsuarioLogin) {
     setIsLoading(true)
+
     try {
-      await login("/usuarios/logar", usuarioLogin, (resposta: UsuarioLogin) => {
-        setUsuario(resposta)
-        localStorage.setItem("token", resposta.token) // 🔹 salva token
-      })
-      ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso")
+      const resposta = await login("/usuarios/logar", usuarioLogin)
+
+      setUsuario(resposta.data)
+      localStorage.setItem("token", resposta.data.token)
+
+      ToastAlerta("Usuário autenticado com sucesso!", "sucesso")
     } catch (error) {
       ToastAlerta("Os dados do Usuário estão inconsistentes!", "erro")
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   function handleLogout() {
@@ -66,11 +70,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       foto: "",
       token: ""
     })
-    localStorage.removeItem("token") // 🔹 apaga token
+
+    localStorage.removeItem("token")
   }
 
   return (
-    <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading }}>
+    <AuthContext.Provider
+      value={{
+        usuario,
+        handleLogin,
+        handleLogout,
+        isLoading
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

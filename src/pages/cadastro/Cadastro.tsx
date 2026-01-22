@@ -1,67 +1,70 @@
-import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
-import type Usuario from "../../models/Usuario";
-import { cadastrarUsuario } from "../../services/Service";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react"
+import { useNavigate } from "react-router-dom"
+import { ClipLoader } from "react-spinners"
+import type Usuario from "../../models/Usuario"
+import { cadastrarUsuario } from "../../services/Service"
 
 function Cadastro() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [confirmarSenha, setConfirmarSenha] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [confirmarSenha, setConfirmarSenha] = useState<string>("")
   const [usuario, setUsuario] = useState<Usuario>({
     id: 0,
     nome: "",
     usuario: "",
     senha: "",
-    foto: "",
-  });
+    foto: ""
+  })
 
   useEffect(() => {
     if (usuario.id !== 0) {
-      retornar();
+      retornar()
     }
-  }, [usuario.id]);
+  }, [usuario.id])
 
   function retornar() {
-    navigate("/login");
-  }
+  navigate("/")
+}
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setUsuario({
       ...usuario,
-      [name]: value,
-    });
+      [name]: value
+    })
   }
 
   function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
-    setConfirmarSenha(e.target.value);
+    setConfirmarSenha(e.target.value)
   }
 
   async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
 
     if (confirmarSenha === usuario.senha && usuario.senha.length >= 8) {
-      setIsLoading(true);
+      setIsLoading(true)
+
       try {
-        await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuario);
-        alert("Usuário cadastrado com sucesso!");
+        const resposta = await cadastrarUsuario("/usuarios/cadastrar", usuario)
+        setUsuario(resposta.data)
+
+        alert("Usuário cadastrado com sucesso!")
       } catch (error) {
-        alert("Erro ao cadastrar o usuário!");
+        alert("Erro ao cadastrar o usuário!")
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     } else {
-      alert("Dados do usuário inconsistentes! Verifique as informações do cadastro.");
-      setUsuario({ ...usuario, senha: "" });
-      setConfirmarSenha("");
+      alert("Dados do usuário inconsistentes! Verifique as informações do cadastro.")
+      setUsuario({ ...usuario, senha: "" })
+      setConfirmarSenha("")
     }
   }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold bg-[#d776a2]">
-      {/* Imagem do lado esquerdo */}
+      {/* Imagem */}
       <div className="lg:block hidden w-full min-h-screen flex items-center justify-center">
         <img
           src="/src/assets/eu.png"
@@ -84,7 +87,7 @@ function Cadastro() {
             id="nome"
             name="nome"
             placeholder="Nome"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={usuario.nome}
             onChange={atualizarEstado}
           />
@@ -97,7 +100,7 @@ function Cadastro() {
             id="usuario"
             name="usuario"
             placeholder="Usuário"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={usuario.usuario}
             onChange={atualizarEstado}
           />
@@ -110,7 +113,7 @@ function Cadastro() {
             id="foto"
             name="foto"
             placeholder="Foto"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={usuario.foto}
             onChange={atualizarEstado}
           />
@@ -123,7 +126,7 @@ function Cadastro() {
             id="senha"
             name="senha"
             placeholder="Senha"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={usuario.senha}
             onChange={atualizarEstado}
           />
@@ -135,7 +138,7 @@ function Cadastro() {
             type="password"
             id="confirmarSenha"
             placeholder="Confirmar Senha"
-            className="border-2 border-white rounded p-2 bg-white text-[#d776a2] placeholder:text-[#e8a9c3]"
+            className="border-2 border-white rounded p-2 bg-white text-[#d776a2]"
             value={confirmarSenha}
             onChange={handleConfirmarSenha}
           />
@@ -155,12 +158,16 @@ function Cadastro() {
             className="rounded text-white bg-[#d776a2] hover:bg-[#e8a9c3] w-1/2 py-2 flex justify-center"
             disabled={isLoading}
           >
-            {isLoading ? <ClipLoader color="#ffffff" size={24} /> : <span>Cadastrar</span>}
+            {isLoading ? (
+              <ClipLoader color="#ffffff" size={24} />
+            ) : (
+              <span>Cadastrar</span>
+            )}
           </button>
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default Cadastro;
+export default Cadastro

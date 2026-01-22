@@ -1,34 +1,35 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://blogpessoal-zvr5.onrender.com"
+  baseURL: "https://blogpessoal-zvr5.onrender.com"
 });
 
-export const cadastrarUsuario = async (url: string, dados: object, setDados: Function) => {
-    const resposta = await api.post(url, dados);
-    setDados(resposta.data);
-}
+// 🔹 LOGIN
+export const login = async (url: string, dados: object) => {
+  return await api.post(url, dados);
+};
 
-export const login = async (url: string, dados: object, setDados: Function) => {
-    const resposta = await api.post(url, dados);
-    setDados(resposta.data);
-}
+// 🔹 CADASTRAR USUÁRIO
+export const cadastrarUsuario = async (url: string, dados: object) => {
+  return await api.post(url, dados);
+};
 
-export const buscar = async (url: string, setDados: Function, header: Object) => {
-    const resposta = await api.get(url, header)
-    setDados(resposta.data)
-}
+// 🔹 BUSCAR (GET)
+export const buscar = async (url: string, header: object) => {
+  return await api.get(url, header);
+};
 
-export const cadastrar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-    const resposta = await api.post(url, dados, header)
-    setDados(resposta.data)
-}
+// 🔹 CADASTRAR (POST com token)
+export const cadastrar = async (url: string, dados: object, header: object) => {
+  return await api.post(url, dados, header);
+};
 
-export const atualizar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-    const resposta = await api.put(url, dados, header)
-    setDados(resposta.data)
-}
+// 🔹 ATUALIZAR (PUT)
+export const atualizar = async (url: string, dados: object, header: object) => {
+  return await api.put(url, dados, header);
+};
 
-export const deletar = async (url: string, header: Object) => {
-    await api.delete(url, header)
-}
+// 🔹 DELETAR (DELETE)
+export const deletar = async (url: string, header: object) => {
+  return await api.delete(url, header);
+};

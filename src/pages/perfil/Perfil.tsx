@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext"
 
 // 👉 importa as imagens do assets
-import fotoPerfil from "../../assets/22fb0ba9-e41b-412b-8f98-92fe764abbe5.jpeg"
+import fotoPerfil from "../../assets/Coding with style and joy.png"
 import capaPerfil from "../../assets/0749963a6a5eea21d4a7a37ea9ecd130.jpg"
 
 function Perfil() {
